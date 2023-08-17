@@ -1,6 +1,6 @@
 # Geometric_Orifice_Area
 MATLAB code to detect the geometric orifice area, record it over time for videos captured using high speed cameras.
-Please refer to [this document]([https://github.com/nairouzshehata/Geometric_Orifice_Area/edit/main/README.md](https://github.com/nairouzshehata/Geometric_Orifice_Area/blob/main/GOA%20Matlab%20user%20protocol.pdf) to setup the camera and for detailed steps on running the code and tuning the hyperparameters.
+Please refer to [this document]([https://github.com/nairouzshehata/Geometric_Orifice_Area/edit/main/README.md](https://github.com/nairouzshehata/Geometric_Orifice_Area/blob/main/GOA%20Matlab%20user%20protocol.pdf)) to setup the camera and for detailed steps on running the code and tuning the hyperparameters.
 
 
 # Step 1) Run HCCV_GOA_Code1.m #
@@ -18,11 +18,11 @@ This does all the analyses, prompts user to:
 Please note: the video needs to start when the valve is closed. There are hyper-parameters at the beginning default values are commented preceded by "def".
 
 # Dependencies:
-* 'MATLAB'	'9.11'
-* 'Image Processing Toolbox'	'11.4'
+* 'MATLAB'	version '9.11'
+* 'Image Processing Toolbox'	version '11.4'
 
 # Cite
-If using this code please cite [our paper: Yacoub M, Tseng YT, Kluin J, Vis A, Stock U, Smail H, Sarathchandra P, Aikawa E, El-Nashar H, Chester A, Shehata N. Valvulogenesis of A “Living”, Innervated Pulmonary Root Induced By An Acellular Scaffold.](https://www.researchsquare.com/article/rs-2322351/latest) 
+If using this code, please cite [our paper: Yacoub M, Tseng YT, Kluin J, Vis A, Stock U, Smail H, Sarathchandra P, Aikawa E, El-Nashar H, Chester A, Shehata N. Valvulogenesis of A “Living”, Innervated Pulmonary Root Induced By An Acellular Scaffold.](https://www.researchsquare.com/article/rs-2322351/latest) 
 
 
 
