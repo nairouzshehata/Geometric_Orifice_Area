@@ -22,7 +22,7 @@ Please note: the video needs to start when the valve is closed. There are hyper-
 * 'Image Processing Toolbox'	'11.4'
 
 # Cite
-If using this code please cite our paper 
+If using this code please cite [our paper: Yacoub M, Tseng YT, Kluin J, Vis A, Stock U, Smail H, Sarathchandra P, Aikawa E, El-Nashar H, Chester A, Shehata N. Valvulogenesis of A “Living”, Innervated Pulmonary Root Induced By An Acellular Scaffold.](https://www.researchsquare.com/article/rs-2322351/latest) 
 
 
 
