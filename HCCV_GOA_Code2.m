@@ -19,7 +19,7 @@ filename=[pname,fname];
 v=VideoReader(filename);
 boundingbox=[28/2 29/2 320/2 321/2];
 
-%% Tune Hyperparameters %
+%% %%%%%%%%%%%% Tune Hyperparameters %%%%%%%%%%%%%%%%%%%%%
 % set to 1 if you've traced cusps before for this video
 loadprev=0; %0 
 
@@ -38,16 +38,16 @@ starttime=0.1;
 fps=480; %480 for camera frame rate, def (960)
 endtime=v.Duration*(v.framerate/fps);
 
-%method of creating finalmask
+% Method of creating finalmask
 optionno=3; %2,3,4,5 def (3)
 %pick closest to centre 'd' or largest area 'aa'
 include_criteria='d'; %'d'
 
-%use active contours or not (slows down code)
+% Use active contours or not (slows down code)
 activecontours=1; %1
 shrinkFactor=1; %def 0.8
 maxIterations = 10; %active contour def 20
-%%%%%%%%%%%%%%%%%%
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% 
 if activecontours == 1
@@ -76,10 +76,10 @@ while hasFrame(v)
         else
             Background=readFrame(v);
             frame1=frame1+1;
-            %Display Background
+            % Display Background
             h_im=imshow(Background);title('BackGround');
             
-            %Red region as part of background
+            % Red region as part of background
             e = imellipse(gca,boundingbox);
             pause
             BW2 = createMask(e,h_im);
@@ -104,17 +104,13 @@ while hasFrame(v)
         a1=0;
         a2=0;
         a3=0;
-        %v.CurrentTime=starttime;
-        %tm=v.CurrentTime;
         
-        %tm=(starttime/(v.framerate/fps))*(v.framerate/fps);
-        %v.CurrentTime=starttime/(v.framerate/fps);
         ccentroid=circ_region.Centroid;
         save([pname,'load_',fname(1:end-13),'.mat'],'BW2', 'mask1','mask2','mask3')
     else
         
         frame1=frame1+1;
-        %Display Current Frame
+        % Display Current Frame
         CurrentFrame=readFrame(v);
         
         % Otsu method from gray to bw
@@ -125,7 +121,7 @@ while hasFrame(v)
         % remove red region
         outmask(BW2==0)=1;
         
-        %Separate HSV channels and use for masking
+        % Separate HSV channels and use for masking
         currenthsv=rgb2hsv(CurrentFrame);
         % Get s channel (2)
         sChannel=currenthsv(:,:,2);
@@ -146,8 +142,6 @@ while hasFrame(v)
         vmask(vlabels==1)=true;
         vmask(BW2==0)=0;
         vmask(vlabels~=1)=0;
-        %         figure, imshow(vmask,[]);
-        %         pause
         
         % Final mask
         switch optionno
@@ -164,12 +158,9 @@ while hasFrame(v)
             otherwise
                 finalmask=vmask;
         end
-        %         figure, imshow(finalmask,[]);
-        %         pause
         
         % Join closer regions together and fill
         vmask_filled = imfill(finalmask,8,'holes');
-        %                         subplot(3,1,2),  imshow(BW_filled,[]);title('Subtraction MASK');
         
         % Keep central region only
         littleParts=regionprops(vmask_filled);
@@ -200,40 +191,30 @@ while hasFrame(v)
             
             ax1=subplot(2,2,1); imshow(rgb2gray(CurrentFrame)); title(fname(1:end-13));
             ax2=subplot(2,2,2); imshow(rgb2gray(CurrentFrame)); 
-
-            %                 visboundaries(ax1,bwNEW,'Color','g');
             
             se = strel('diamond',stelsize); % bigger size, bigger the mask
-            bwNEW_dilated = imdilate(bwNEW,se);
-            %         visboundaries(ax1,bwNEW_dilated,'Color','y');
-            
+            bwNEW_dilated = imdilate(bwNEW,se);            
             
             switch activecontours
                 case 1
                     %in case of edge -ve dilates, pos shrinks
                     bw0 = activecontour(Out, bwNEW_dilated, maxIterations, 'edge','ContractionBias',shrinkFactor, 'SmoothFactor',2);
-                    %         bw0 = activecontour(Out, bwNEW, maxIterations,  'Chan-Vese', 'SmoothFactor',1);
-                    %         bw0_open=imopen(bw0,se);
-                otherwise
-                                    
+                otherwise                                    
                     bw0=bwNEW;
-%                     visboundaries(ax1,bw0,'Color','r');
             end
+            
             v.CurrentTime
             cap=( sum(bw0(:))/sum(BW2(:)) *100 );
         else
-            %             ccentroid=circ_region.Centroid;
             cap=0;
             ax1=subplot(2,2,1); imshow(rgb2gray(CurrentFrame)); title(fname(1:end-13));
             ax2=subplot(2,2,2); imshow(rgb2gray(CurrentFrame)); 
 
             bw0=zeros(size(CurrentFrame,1),size(CurrentFrame,2));
         end
-        %         [wat wer]=min(d);
         diff_1=bw0 & mask1;
         diff_2=bw0 & mask2;
         diff_3=bw0 & mask3;
-        
         
         
         % plot time against area
@@ -274,16 +255,12 @@ while hasFrame(v)
                 visboundaries(ax1,diff_2,'Color','g');
                 visboundaries(ax1,diff_3,'Color','b');
         end
-        
-        
-        
+     
         xlim([0 v.Duration*(v.framerate/fps)])
         ylim([0 100])
         xlabel('Time [seconds]')
         ylabel('Geometric Orifice Area [%]')
-        
-
-        
+       
         axf=gcf;
         drawnow();
         writeVideo(vw,getframe(axf));
