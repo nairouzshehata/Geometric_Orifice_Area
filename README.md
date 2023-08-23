@@ -1,6 +1,9 @@
 # Geometric_Orifice_Area
 MATLAB code to detect the geometric orifice area and record it over time for videos captured using high speed cameras.
 Please refer to [this document](https://github.com/nairouzshehata/Geometric_Orifice_Area/blob/main/GOA%20Matlab%20user%20protocol.pdf) to setup the camera and for detailed steps on running the code and tuning the hyperparameters.
+
+
+
 ![](https://github.com/nairouzshehata/Geometric_Orifice_Area/blob/4b355f0fad6fc77008e904c3bc6ade481c6d56e6/GOA_synch2.gif)
 
 
